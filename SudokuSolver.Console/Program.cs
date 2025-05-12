@@ -1,5 +1,33 @@
 ﻿using SudokuSolver;
 
+if (args.Length > 0)
+{
+    if (args[0].Length != 9*9)
+    {
+        Console.Error.WriteLine("Invalid argument");
+        Environment.Exit(1);
+    }
+
+    try
+    {
+        var solved = Sudoku.Solve(args[0].Select(a => int.Parse(a.ToString())).ToArray());
+        if (solved == null)
+        {
+            Console.Error.WriteLine("Impossible to solve");
+            Environment.Exit(2);
+        }
+
+        Console.WriteLine(string.Join("", solved));
+    }
+    catch
+    {
+        Console.Error.WriteLine("Invalid argument");
+        Environment.Exit(1);
+    }
+
+    return;
+}
+
 Console.WriteLine("Input sudoku. Use 0 for empty cells.");
 
 var n = 0;
